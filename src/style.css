@@ -1,0 +1,29 @@
+* {
+    text-align: center;
+}
+.board {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(3, 150px);
+    grid-template-rows: repeat(3, 150px);
+    justify-content: center;
+}
+.board > div {
+    border: 2px solid black;
+}
+button{
+    transition-duration: 0.4s;
+    border: 2px solid black;
+    border-radius: 6px;
+    padding: 4px 14px;
+    font-size: medium;
+}
+button:hover {
+    background-color: black;
+    color: white;
+}
+.scores{
+    display: flex;
+    justify-content: space-evenly;
+}
+
