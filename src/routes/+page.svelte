@@ -11,6 +11,7 @@
     let playerTwoScore = 0;
 
     function change(cell){
+        open = false
         if(cellColours[cell] == "white"){
             if(turn == false){
                 cellColours[cell] = playerOneColour;
@@ -62,6 +63,16 @@
         }else{
             checkWin(playerTwoCells);
         }
+        if(open == false){
+            buttonText = "Change Player Colours";
+        }else if(open == true){
+            buttonText = "Close";
+        }
+    }
+    let open = false;
+    let buttonText = "Change Player Colours";
+    function show(){
+        open = !open;
     }
 </script>
 
@@ -76,7 +87,6 @@
 {:else}
     <h2 style="color:{playerTwoColour};">Player Two's Turn</h2>
 {/if}
-<!-- <input type="color" bind:value={playerOneColour}> -->
 <button on:click={() => clear(":)")}>Clear</button>
 <div class="scores">
     <h3 style="color:{playerOneColour}">{playerOneScore}</h3>
@@ -87,3 +97,13 @@
         <div id={cell} on:click={() => change(cell)} style="background-color:{cellColours[cell]}"></div>
     {/each}
 </div>
+{#if cellColours.includes(playerOneColour) == false && cellColours.includes(playerTwoColour) == false}
+    <button id="colour-change" on:click={show}>{buttonText}</button>
+{/if}
+{#if open == true}
+    <div>
+        <h4>Player One Colour: <input type="color" bind:value={playerOneColour}></h4>
+        <h4>Player Two Colour: <input type="color" bind:value={playerTwoColour}></h4>
+    </div>
+    <!-- <button on:click={show}>Close</button> -->
+{/if}
