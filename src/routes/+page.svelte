@@ -87,23 +87,28 @@
 {:else}
     <h2 style="color:{playerTwoColour};">Player Two's Turn</h2>
 {/if}
-<button on:click={() => clear(":)")}>Clear</button>
+<button on:click={() => clear(":)")}>Reset</button>
 <div class="scores">
     <h3 style="color:{playerOneColour}">{playerOneScore}</h3>
     <h3 style="color:{playerTwoColour}">{playerTwoScore}</h3>
 </div>
 <div class="board">
     {#each cells as cell}
-        <div id={cell} on:click={() => change(cell)} style="background-color:{cellColours[cell]}"></div>
+        <div id={"cell-" + cell} on:click={() => change(cell)} style="background-color:{cellColours[cell]}"></div>
     {/each}
 </div>
 {#if cellColours.includes(playerOneColour) == false && cellColours.includes(playerTwoColour) == false}
     <button id="colour-change" on:click={show}>{buttonText}</button>
 {/if}
 {#if open == true}
-    <div>
-        <h4>Player One Colour: <input type="color" bind:value={playerOneColour}></h4>
-        <h4>Player Two Colour: <input type="color" bind:value={playerTwoColour}></h4>
-    </div>
-    <!-- <button on:click={show}>Close</button> -->
+    <h4>Player One Colour: <input type="color" bind:value={playerOneColour}></h4>
+    <h4>Player Two Colour: <input type="color" bind:value={playerTwoColour}></h4>
+{/if}
+
+{#if cellColours[0] == "white"}
+    <style>
+        #cell-0:hover {
+            background-color: rgb(184, 184, 184) !important;
+        }
+    </style>
 {/if}
