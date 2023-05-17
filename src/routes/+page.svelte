@@ -5,6 +5,7 @@
     let playerOneColour = "#500472";
     let playerTwoColour = "#30c7a4";
     let cellColours = ["white", "white", "white", "white", "white", "white", "white", "white", "white"];
+    let selected = ["no", "no", "no", "no", "no", "no", "no", "no", "no"];
     let playerOneCells = [];
     let playerTwoCells = [];
     let playerOneScore = 0;
@@ -22,10 +23,12 @@
                 playerTwoCells.push(cell)
                 turn = false;
             }
+            selected[cell] = "yes";
         }
     }
     function clear(button){
         cellColours = ["white", "white", "white", "white", "white", "white", "white", "white", "white"];
+        selected = ["no", "no", "no", "no", "no", "no", "no", "no", "no"];
         playerOneCells = [];
         playerTwoCells = [];
         if(button != null){
@@ -89,12 +92,12 @@
 {/if}
 <button on:click={() => clear(":)")}>Reset</button>
 <div class="scores">
-    <h3 style="color:{playerOneColour}">{playerOneScore}</h3>
-    <h3 style="color:{playerTwoColour}">{playerTwoScore}</h3>
+    <h2 style="color:{playerOneColour}">{playerOneScore}</h2>
+    <h2 style="color:{playerTwoColour}">{playerTwoScore}</h2>
 </div>
 <div class="board">
     {#each cells as cell}
-        <div id={"cell-" + cell} on:click={() => change(cell)} style="background-color:{cellColours[cell]}"></div>
+        <div class={selected[cell]} on:click={() => change(cell)} style="background-color:{cellColours[cell]}"></div>
     {/each}
 </div>
 {#if cellColours.includes(playerOneColour) == false && cellColours.includes(playerTwoColour) == false}
@@ -105,10 +108,10 @@
     <h4>Player Two Colour: <input type="color" bind:value={playerTwoColour}></h4>
 {/if}
 
-{#if cellColours[0] == "white"}
+<!-- {#if cellColours[0] == "white"}
     <style>
         #cell-0:hover {
-            background-color: rgb(184, 184, 184) !important;
+            background-color: rgb(213, 214, 199) !important;
         }
     </style>
-{/if}
+{/if} -->
