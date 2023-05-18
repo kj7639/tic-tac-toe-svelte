@@ -2,7 +2,7 @@
     let cells = [0,1,2,3,4,5,6,7,8];
     let winningCombos = [[0,1,2], [3,4,5], [6,7,8,], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]];
     let turn = false;
-    let playerOneColour = "#500472";
+    let playerOneColour = "#7203a5";
     let playerTwoColour = "#30c7a4";
     let cellColours = ["white", "white", "white", "white", "white", "white", "white", "white", "white"];
     let selected = ["no", "no", "no", "no", "no", "no", "no", "no", "no"];
@@ -67,20 +67,34 @@
             checkWin(playerTwoCells);
         }
         if(open == false){
-            buttonText = "Change Player Colours";
+            buttonText = "Change Colours";
         }else if(open == true){
             buttonText = "Close";
         }
+        if(lightMode == true){
+            modeButtonText = "Turn on dark mode"
+        }else{
+            modeButtonText = "Turn on light mode"
+        }
     }
+
     let open = false;
-    let buttonText = "Change Player Colours";
+    let buttonText = "Change Colours";
     function show(){
         open = !open;
     }
+    let lightMode = true;
+    let modeButtonText = "Turn on dark mode"
+    function changeColourMode(){
+        lightMode = !lightMode;
+    }
 </script>
-
 <svelte:head>
-    <link rel="stylesheet" href="/src/style.css">
+    {#if lightMode == false}
+        <link rel="stylesheet" href="/src/alternate-style.css">
+    {:else if lightMode == true}
+        <link rel="stylesheet" href="/src/style.css">
+    {/if}
 </svelte:head>
 
 <title>Tic Tac Toe</title>
@@ -102,16 +116,11 @@
 </div>
 {#if cellColours.includes(playerOneColour) == false && cellColours.includes(playerTwoColour) == false}
     <button id="colour-change" on:click={show}>{buttonText}</button>
+    <button on:click={() => changeColourMode()}>{modeButtonText}</button>
 {/if}
 {#if open == true}
-    <h4>Player One Colour: <input type="color" bind:value={playerOneColour}></h4>
-    <h4>Player Two Colour: <input type="color" bind:value={playerTwoColour}></h4>
+    <div class="colour-change-selectors">
+        <h4>Player One Colour: <input type="color" bind:value={playerOneColour}></h4>
+        <h4>Player Two Colour: <input type="color" bind:value={playerTwoColour}></h4>
+    </div>
 {/if}
-
-<!-- {#if cellColours[0] == "white"}
-    <style>
-        #cell-0:hover {
-            background-color: rgb(213, 214, 199) !important;
-        }
-    </style>
-{/if} -->
